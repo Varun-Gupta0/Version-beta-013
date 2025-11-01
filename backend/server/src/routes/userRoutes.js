@@ -1,26 +1,13 @@
-// src/routes/userRoutes.js
 import express from "express";
+import { registerUser, loginUser, getUserProfile } from "../controllers/userController.js";
+import {protect} from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// Example route for user registration
-router.post("/register", (req, res) => {
-  const { name, email, password } = req.body;
+router.post("/register", registerUser);
+router.post("/login", loginUser);
 
-  // Temporary placeholder logic
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: "Please provide all fields" });
-  }
-
-  res.status(201).json({
-    message: "User registered successfully!",
-    user: { name, email },
-  });
-});
-
-// Example route for fetching users (test purpose)
-router.get("/", (req, res) => {
-  res.json({ message: "Fetching all users..." });
-});
+// Protected route
+router.get("/profile", protect, getUserProfile);
 
 export default router;

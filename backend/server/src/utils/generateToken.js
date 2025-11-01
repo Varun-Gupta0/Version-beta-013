@@ -1,8 +1,15 @@
-// src/utils/generateToken.js
 import jwt from "jsonwebtoken";
 
-export default function generateToken(payload) {
-  const secret = process.env.JWT_SECRET || "secret";
-  const expiresIn = process.env.JWT_EXPIRES_IN || "7d";
-  return jwt.sign(payload, secret, { expiresIn });
-}
+/**
+ * Generate a JWT for a user id
+ * @param {string} id
+ * @returns {string}
+ */
+const generateToken = (id) => {
+  // process.env is typed by @types/node; ensure @types/node is installed in devDependencies
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d", // valid for 30 days
+  });
+};
+
+export default generateToken;

@@ -1,27 +1,66 @@
-import User from "../models/user.js";
+import User from "../models/User.js";
+import jwt from "jsonwebtoken";
 
-// Register new user
+const generateToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "30d",
+  });
+};
+
+// 🟢 Register
 export const registerUser = async (req, res) => {
+  const { name, email, password } = req.body;
   try {
-    const { name, email, password } = req.body;
-
-    const existingUser = await User.findOne({ email });
-    if (existingUser)
+    const userExists = await User.findOne({ email });
+    if (userExists)
       return res.status(400).json({ message: "User already exists" });
 
-    const newUser = await User.create({ name, email, password });
-    res.status(201).json({ message: "User registered successfully", newUser });
+    const user = await User.create({ name, email, password });
+
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user._id),
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Server error" });
   }
 };
 
-// Get all users
-export const getUsers = async (req, res) => {
+// 🔵 Login
+export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const users = await User.find();
-    res.json(users);
+    const user = await User.findOne({ email });
+
+    if (user && (await user.matchPassword(password))) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        token: generateToken(user._id),
+      });
+    } else {
+      res.status(401).json({ message: "Invalid email or password" });
+    }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// 🟣 Get user profile (protected)
+export const getUserProfile = async (req, res) => {
+  try {
+    const user = req.user;
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
   }
 };
