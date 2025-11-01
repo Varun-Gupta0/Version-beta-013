@@ -50,7 +50,6 @@ const config = {
         // 4. This line connects Tailwind's 'sans' to your font
         sans: ["var(--font-sans)", "sans-serif"],
       },
-      // ... your other theme extensions
     },
   },
   plugins: [],

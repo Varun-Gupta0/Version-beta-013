@@ -1,31 +1,23 @@
 // app/layout.tsx
-
+// app/layout.tsx
 import "../styles/global.css"; // Ensure Tailwind's @tailwind directives are loaded first
-import React from "react";
+import React from "react"; // Ensure Tailwind's @tailwind directives are loaded first
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Providers } from "@/components/providers";
-import { Inter } from "next/font/google"; // 1. Import your font
 
-// 2. Set up the font and assign it a CSS variable name
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-export const metadata = {
-  title: "MediVault",
-  description: "AI + Blockchain powered health record management system",
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    // 3. Add the font variable to your <html> tag
-    <html lang="en" suppressHydrationWarning className={`${inter.variable}`}>
-      <body className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased transition-colors duration-200">
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body>
         <Providers>
           <Navbar />
-          <main className="max-w-6xl mx-auto px-4 py-6">{children}</main>
+          <main>{children}</main>
           <Footer />
         </Providers>
       </body>
