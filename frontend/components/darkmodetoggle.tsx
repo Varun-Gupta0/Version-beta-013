@@ -5,19 +5,35 @@ import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
 export default function DarkModeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <button 
+        className="w-9 h-9 rounded-lg bg-gray-200 dark:bg-gray-600 flex items-center justify-center"
+        aria-label="Loading theme toggle"
+      >
+        <span className="sr-only">Loading theme</span>
+      </button>
+    );
+  }
 
   return (
     <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      aria-label="Toggle dark mode"
-      className="p-2 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      className="w-9 h-9 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-medical-light dark:hover:bg-gray-700 flex items-center justify-center transition-colors"
+      aria-label="Toggle theme"
     >
-      {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+      {resolvedTheme === 'dark' ? (
+        <Sun className="h-5 w-5 text-medical-DEFAULT" />
+      ) : (
+        <Moon className="h-5 w-5 text-medical-dark" />
+      )}
     </button>
   );
 }

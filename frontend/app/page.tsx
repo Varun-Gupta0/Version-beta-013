@@ -1,65 +1,92 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-gradient-to-b from-white to-medical-light dark:from-gray-900 dark:to-gray-800">
+      {/* Hero Section */}
+      <section className="pt-20 pb-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                Secure Medical Data Management with{" "}
+                <span className="text-medical-DEFAULT">AI & Blockchain</span>
+              </h1>
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                Experience the future of healthcare data management. Secure, accessible, and intelligent.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/auth/patient"
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-medical-DEFAULT dark:border-medical-light text-base font-medium rounded-lg text-medical-DEFAULT dark:text-medical-light bg-gray-100 dark:bg-gray-800 hover:bg-medical-light/10 dark:hover:bg-gray-700 transition-colors duration-200"
+                >
+                  Get Started
+                </Link>
+                <Link
+                  href="/features"
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-medical-DEFAULT dark:border-medical-light text-base font-medium rounded-lg text-medical-DEFAULT dark:text-medical-light bg-gray-100 dark:bg-gray-800 hover:bg-medical-light/10 dark:hover:bg-gray-700 transition-colors duration-200"
+                >
+                  Learn More
+                </Link>
+              </div>
+            </div>
+            <div className="hidden lg:block">
+              <div className="relative">
+                <div className="absolute -inset-4">
+                  <div className="w-full h-full mx-auto opacity-30 blur-lg filter bg-gradient-to-r from-medical-light via-medical-DEFAULT to-medical-dark" />
+                </div>
+                <Image
+                  src="/medical-dashboard.jpg"
+                  alt="Medical Dashboard Preview"
+                  width={600}
+                  height={400}
+                  className="relative rounded-lg shadow-2xl"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 bg-white/50 dark:bg-gray-800/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white mb-12">
+            Why Choose MedWallet?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Secure Blockchain",
+                description: "Your medical data is encrypted and stored securely on the blockchain",
+                icon: "🔒"
+              },
+              {
+                title: "AI-Powered Insights",
+                description: "Get intelligent health insights and personalized recommendations",
+                icon: "🤖"
+              },
+              {
+                title: "Easy Access",
+                description: "Access your medical records anytime, anywhere, securely",
+                icon: "📱"
+              }
+            ].map((feature) => (
+              <div key={feature.title} className="p-6 rounded-lg bg-gray-100 dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-200">
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-semibold text-medical-DEFAULT dark:text-medical-light mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 }

@@ -21,8 +21,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     // 3. Add the font variable to your <html> tag
-    <html lang="en" suppressHydrationWarning className={inter.variable}>
-      <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
+    <html lang="en" suppressHydrationWarning className={`${inter.variable}`}>
+      <body className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased transition-colors duration-200">
         <Providers>
           <Navbar />
           <main className="max-w-6xl mx-auto px-4 py-6">{children}</main>
