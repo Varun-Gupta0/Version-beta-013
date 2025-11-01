@@ -1,39 +1,56 @@
 @layer base {
-  /* * This is where you define all your theme variables
-   * for light and dark mode.
-   */
+  /* 🎨 Global Theme Variables for MediVault */
 
   :root {
-    /* Light Mode */
+    /* 🌞 Light Mode */
     --background: #ffffff;
     --foreground: #171717;
 
-    /* Add other theme colors */
     --primary: #007aff;
     --primary-foreground: #ffffff;
-    --secondary: #f0f0f0;
+
+    --secondary: #f5f5f5;
     --secondary-foreground: #171717;
+
+    --accent: #e0e7ff;
+    --accent-foreground: #1e40af;
+
+    --muted: #f9fafb;
+    --muted-foreground: #6b7280;
+
+    --border: #e5e7eb;
+    --radius: 0.75rem; /* Rounded corner default for cards/buttons */
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      /* Dark Mode */
+      /* 🌚 Dark Mode */
       --background: #0a0a0a;
       --foreground: #ededed;
 
-      /* Add other theme colors */
       --primary: #0a84ff;
       --primary-foreground: #ffffff;
+
       --secondary: #1c1c1e;
       --secondary-foreground: #ededed;
+
+      --accent: #1e3a8a;
+      --accent-foreground: #e0e7ff;
+
+      --muted: #18181b;
+      --muted-foreground: #9ca3af;
+
+      --border: #2e2e2e;
+      --radius: 0.75rem;
     }
   }
 
-  /* * This optional part (which you already had) is good for connecting
-   * CSS vars to your tailwind.config.js if needed.
-   */
+  /* 🔗 Connection for Tailwind + CSS Vars (optional integration) */
   :root {
     --color-background: var(--background);
     --color-foreground: var(--foreground);
+    --color-primary: var(--primary);
+    --color-secondary: var(--secondary);
+    --color-border: var(--border);
   }
 }

@@ -1,0 +1,14 @@
+{
+  // Map CSS files in the workspace to PostCSS so @tailwind and @apply are
+  // recognized by the language service and Tailwind IntelliSense.
+  "files.associations": {
+    "**/*.css": "postcss"
+  },
+  "tailwindCSS.includeLanguages": {
+    "css": "postcss"
+  },
+  // Disable the built-in CSS validator to avoid duplicate unknown at-rule
+  // diagnostics for Tailwind at-rules. The frontend/.vscode settings remain
+  // and this just ensures the root workspace also recognises PostCSS.
+  "css.validate": false
+}
