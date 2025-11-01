@@ -16,18 +16,12 @@ export default function Home() {
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
                 Experience the future of healthcare data management. Secure, accessible, and intelligent.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex justify-center">
                 <Link
-                  href="/auth/patient"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-medical-DEFAULT dark:border-medical-light text-base font-medium rounded-lg text-medical-DEFAULT dark:text-medical-light bg-gray-100 dark:bg-gray-800 hover:bg-medical-light/10 dark:hover:bg-gray-700 transition-colors duration-200"
+                  href="/auth"
+                  className="inline-flex items-center justify-center px-8 py-3 border-2 border-medical-DEFAULT dark:border-medical-light text-base font-medium rounded-lg text-medical-DEFAULT dark:text-medical-light bg-gray-100 dark:bg-gray-800 hover:bg-medical-light/10 dark:hover:bg-gray-700 transition-colors duration-200"
                 >
-                  Get Started
-                </Link>
-                <Link
-                  href="/features"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-medical-DEFAULT dark:border-medical-light text-base font-medium rounded-lg text-medical-DEFAULT dark:text-medical-light bg-gray-100 dark:bg-gray-800 hover:bg-medical-light/10 dark:hover:bg-gray-700 transition-colors duration-200"
-                >
-                  Learn More
+                  Login/Register
                 </Link>
               </div>
             </div>

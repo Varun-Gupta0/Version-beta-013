@@ -1,0 +1,110 @@
+/* Base card styles */
+#login-card {
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+    transition: box-shadow 0.4s ease-out;
+    --tw-shadow-color: transparent;
+}
+
+.tab-btn {
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.tab-btn:not(.active) {
+    background-color: transparent;
+    color: #4B5563;
+}
+
+/* Patient Theme (Indigo) */
+.patient-theme {
+    --tw-shadow-color: #a5b4fc;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15), 0 0px 40px -15px var(--tw-shadow-color);
+}
+
+.patient-theme .header-title {
+    background-image: linear-gradient(to right, #4F46E5, #6366F1);
+}
+
+.patient-theme .tab-btn.active {
+    color: #4F46E5;
+}
+
+.patient-theme .form-link {
+    color: #4F46E5;
+}
+
+.patient-theme .form-link:hover {
+    color: #6366F1;
+}
+
+.patient-theme .submit-btn {
+    background-image: linear-gradient(to right, #4F46E5, #6366F1);
+}
+
+.patient-theme .submit-btn:hover {
+    background-image: linear-gradient(to right, #4338CA, #4F46E5);
+}
+
+/* Doctor Theme (Green) */
+.doctor-theme {
+    --tw-shadow-color: #86efac;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15), 0 0px 40px -15px var(--tw-shadow-color);
+}
+
+.doctor-theme .header-title {
+    background-image: linear-gradient(to right, #16A34A, #22C55E);
+}
+
+.doctor-theme .tab-btn.active {
+    color: #16A34A;
+}
+
+.doctor-theme .form-link {
+    color: #16A34A;
+}
+
+.doctor-theme .form-link:hover {
+    color: #15803D;
+}
+
+.doctor-theme .submit-btn {
+    background-image: linear-gradient(to right, #16A34A, #22C55E);
+}
+
+.doctor-theme .submit-btn:hover {
+    background-image: linear-gradient(to right, #15803D, #16A34A);
+}
+
+/* Lab Theme (Teal) */
+.lab-theme {
+    --tw-shadow-color: #5eead4;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15), 0 0px 40px -15px var(--tw-shadow-color);
+}
+
+.lab-theme .header-title {
+    background-image: linear-gradient(to right, #0D9488, #14B8A6);
+}
+
+.lab-theme .tab-btn.active {
+    color: #0D9488;
+}
+
+.lab-theme .form-link {
+    color: #0D9488;
+}
+
+.lab-theme .form-link:hover {
+    color: #0F766E;
+}
+
+.lab-theme .submit-btn {
+    background-image: linear-gradient(to right, #0D9488, #14B8A6);
+}
+
+.lab-theme .submit-btn:hover {
+    background-image: linear-gradient(to right, #0F766E, #0D9488);
+}
