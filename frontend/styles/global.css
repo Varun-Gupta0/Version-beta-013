@@ -1,13 +1,113 @@
-/*
-  Global stylesheet processed by PostCSS + Tailwind.
-  Language mode: PostCSS
-*/
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  /* Auth page specific styles */
+  .header-title {
+    background-image: linear-gradient(to right, var(--header-from), var(--header-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Theme-specific variables */
+  .patient-theme {
+    --header-from: #4F46E5;
+    --header-to: #6366F1;
+    --shadow-color: #a5b4fc;
+  }
+
+  .doctor-theme {
+    --header-from: #16A34A;
+    --header-to: #22C55E;
+    --shadow-color: #86efac;
+  }
+
+  .lab-theme {
+    --header-from: #0D9488;
+    --header-to: #14B8A6;
+    --shadow-color: #5eead4;
+  }
+
+  /* Login card styles */
+  #login-card {
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15), 0 0px 40px -15px var(--shadow-color);
+    transition: all 0.4s ease-out;
+  }
+
+  /* Tab button styles */
+  .tab-btn {
+    transition: all 0.3s ease;
+  }
+
+  .tab-btn.active {
+    background-color: white;
+    color: var(--header-from);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .tab-btn:not(.active) {
+    background-color: transparent;
+    color: #4B5563;
+  }
+
+  /* Submit button styles */
+  .submit-btn {
+    background-image: linear-gradient(to right, var(--header-from), var(--header-to));
+  }
+
+  .submit-btn:hover {
+    background-image: linear-gradient(to right, var(--header-to), var(--header-from));
+  }
+
+  /* Register button styles */
+  .register-btn {
+    color: var(--header-from);
+    border-color: var(--header-from);
+  }
+}
+
 @layer base {
+  /* Auth page theme variables */
+  .patient-theme {
+    --gradient-from: #4F46E5;
+    --gradient-to: #6366F1;
+    --shadow-color: #a5b4fc;
+  }
+
+  .doctor-theme {
+    --gradient-from: #16A34A;
+    --gradient-to: #22C55E;
+    --shadow-color: #86efac;
+  }
+
+  .lab-theme {
+    --gradient-from: #0D9488;
+    --gradient-to: #14B8A6;
+    --shadow-color: #5eead4;
+  }
+
+  #login-card {
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15), 0 0px 40px -15px var(--shadow-color);
+  }
+
+  .header-title {
+    background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .submit-btn {
+    background-image: linear-gradient(to right, var(--gradient-from), var(--gradient-to));
+  }
+
+  .tab-btn.active {
+    color: var(--gradient-from);
+    background-color: white;
+  }
+
   /* 🌗 Theme Variables */
   :root {
     /* Light Mode */

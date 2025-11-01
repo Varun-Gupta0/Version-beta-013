@@ -79,11 +79,11 @@ export default function Home() {
                   {/* Replaced Next/Image with <img> for preview compatibility */}
                   {/* When in your real project, change this back to: <Image ... /> and place your image in /public */}
                   <img
-                    src="https://placehold.co/600x400/5be4d4/ffffff?text=Medical+Dashboard"
-                    alt="Medical Dashboard Preview"
+                    src="/medical-dashboard.jpg"
                     width={600}
                     height={400}
                     className="relative rounded-lg shadow-2xl"
+                    alt="Medical Dashboard Preview"
                   />
                 </div>
               </div>

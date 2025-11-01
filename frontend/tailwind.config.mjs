@@ -1,16 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
-  darkMode: 'class',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./styles/**/*.css",
   ],
   darkMode: "class",
   theme: {
     extend: {
       colors: {
         primary: {
+          DEFAULT: '#0ea5e9',
+          foreground: '#ffffff',
           50: '#f0f9ff',
           100: '#e0f2fe',
           200: '#bae6fd',
@@ -23,6 +25,8 @@ const config = {
           900: '#0c4a6e',
         },
         secondary: {
+          DEFAULT: '#22c55e',
+          foreground: '#ffffff',
           50: '#f0fdf4',
           100: '#dcfce7',
           200: '#bbf7d0',
@@ -35,6 +39,7 @@ const config = {
           900: '#14532d',
         },
         accent: '#FF6B6B',
+        border: '#e5e7eb',
         medical: {
           light: '#E3F2FD',
           DEFAULT: '#2196F3',

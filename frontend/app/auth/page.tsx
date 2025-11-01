@@ -1,81 +1,53 @@
-'use client'; // This component needs state and event handlers, so it must be a client component.
+'use client';
 
 import React, { useState } from 'react';
-// import Link from 'next/link'; // Use Next.js Link for navigation - temporarily replaced with <a>
+import './auth.module.css';
 
 export default function AuthPage() {
-    // State to manage the active role
     const [activeRole, setActiveRole] = useState<'patient' | 'doctor' | 'lab'>('patient');
-
-    // Define theme styles for each role using Tailwind classes
-    const themeStyles = {
-        patient: {
-            shadow: 'shadow-[0_0_40px_-15px_#a5b4fc]',
-            header: 'from-[#4F46E5] to-[#6366F1]',
-            tabActive: 'text-[#4F46E5] bg-white',
-            link: 'text-[#4F46E5] hover:text-[#6366F1]',
-            submit: 'bg-gradient-to-r from-[#4F46E5] to-[#6366F1] hover:from-[#4338CA] hover:to-[#4F46E5]',
-            register: 'text-[#4F46E5] border-[#4F46E5] bg-[#EEF2FF] hover:bg-[#E0E7FF]',
-        },
-        doctor: {
-            shadow: 'shadow-[0_0_40px_-15px_#86efac]',
-            header: 'from-[#16A34A] to-[#22C55E]',
-            tabActive: 'text-[#16A34A] bg-white',
-            link: 'text-[#16A34A] hover:text-[#15803D]',
-            submit: 'bg-gradient-to-r from-[#16A34A] to-[#22C55E] hover:from-[#15803D] hover:to-[#16A34A]',
-            register: 'text-[#16A34A] border-[#16A34A] bg-[#F0FDF4] hover:bg-[#DCFCE7]',
-        },
-        lab: {
-            shadow: 'shadow-[0_0_40px_-15px_#5eead4]',
-            header: 'from-[#0D9488] to-[#14B8A6]',
-            tabActive: 'text-[#0D9488] bg-white',
-            link: 'text-[#0D9488] hover:text-[#0F766E]',
-            submit: 'bg-gradient-to-r from-[#0D9488] to-[#14B8A6] hover:from-[#0F766E] hover:to-[#0D9488]',
-            register: 'text-[#0D9488] border-[#0D9488] bg-[#F0FDFA] hover:bg-[#CCFBF1]',
-        }
-    };
-
-    // Get the current theme based on the active role
-    const currentTheme = themeStyles[activeRole];
 
     const getTabClassName = (role: 'patient' | 'doctor' | 'lab') => {
         const base = 'w-full py-2.5 px-4 rounded-md font-semibold text-sm transition-all duration-300';
         if (role === activeRole) {
-            return `${base} ${currentTheme.tabActive} shadow-md`;
+            return `${base} bg-white shadow-md`;
         }
-        return `${base} bg-transparent text-gray-600`;
+        return `${base} bg-transparent hover:bg-white/50`;
     };
 
     const getRegisterBtnClassName = (role: 'patient' | 'doctor' | 'lab') => {
         const base = 'w-full py-2.5 px-4 text-center font-medium border rounded-lg transition-colors';
         if (role === activeRole) {
-            return `${base} ${currentTheme.register}`;
+            return `${base} register-btn active`;
         }
         return `${base} text-gray-700 border-gray-400 hover:bg-gray-50`;
     };
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4" style={{ fontFamily: "'Inter', sans-serif" }}>
-            
-            <div className={`bg-white p-8 md:p-10 rounded-2xl w-full max-w-md transition-all duration-400 ease-out 
-                shadow-[0_25px_50px_-12px_rgb(0,0,0,0.15)] ${currentTheme.shadow}`}
-                style={{
-                    boxShadow: `0 25px 50px -12px rgb(0 0 0 / 0.15), ${currentTheme.shadow.includes('a5b4fc') ? '0 0 40px -15px #a5b4fc' : 
-                                                                        currentTheme.shadow.includes('86efac') ? '0 0 40px -15px #86efac' :
-                                                                        '0 0 40px -15px #5eead4'}`
-                }}>
-                
-                {/* Header */}
-                <div className="text-center mb-8">
-                    <h1 className={`text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${currentTheme.header}`}
-                        style={{
-                            WebkitBackgroundClip: 'text',
-                            backgroundClip: 'text',
-                        }}>
-                        MedWallet
-                    </h1>
-                    <p className="text-gray-500 mt-2">Sign in to your account</p>
+            <div className="flex gap-8 items-center max-w-6xl w-full">
+                {/* Image Section */}
+                <div className="hidden lg:block w-1/2">
+                    <img 
+                        src="/medical-dashboard.jpg" 
+                        alt="Medical Dashboard Preview" 
+                        className="rounded-2xl shadow-2xl w-full h-auto"
+                    />
                 </div>
+                
+                <div className="w-full lg:w-1/2">
+                    <div id="login-card" className={`bg-white p-8 md:p-10 rounded-2xl w-full max-w-md mx-auto transition-all duration-400 ease-out shadow-xl ${activeRole}-theme`}>
+                    
+                    {/* Header */}
+                    <div className="text-center mb-8">
+                        <h1 className={`text-3xl font-bold bg-gradient-to-r 
+                            ${activeRole === 'patient' ? 'from-indigo-600 to-indigo-400' : 
+                              activeRole === 'doctor' ? 'from-emerald-600 to-emerald-400' : 
+                              'from-cyan-600 to-cyan-400'} 
+                            bg-clip-text text-transparent`}>
+                            MedWallet
+                        </h1>
+                        <p className="text-gray-500 mt-2">Sign in to your account</p>
+                    </div>
 
                 {/* Role Tabs */}
                 <div className="grid grid-cols-3 gap-2 mb-6 rounded-lg p-1.5 bg-gray-100">
@@ -84,28 +56,42 @@ export default function AuthPage() {
                         className={getTabClassName('patient')}
                         onClick={() => setActiveRole('patient')}
                     >
-                        Patient
+                        <span className={activeRole === 'patient' ? 'bg-gradient-to-r from-indigo-600 to-indigo-400 bg-clip-text text-transparent' : ''}>
+                            Patient
+                        </span>
                     </button>
                     <button 
                         id="doctor-tab" 
                         className={getTabClassName('doctor')}
                         onClick={() => setActiveRole('doctor')}
                     >
-                        Doctor
+                        <span className={activeRole === 'doctor' ? 'bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent' : ''}>
+                            Doctor
+                        </span>
                     </button>
                     <button 
                         id="lab-tab" 
                         className={getTabClassName('lab')}
                         onClick={() => setActiveRole('lab')}
                     >
-                        Lab
+                        <span className={activeRole === 'lab' ? 'bg-gradient-to-r from-cyan-600 to-cyan-400 bg-clip-text text-transparent' : ''}>
+                            Lab
+                        </span>
                     </button>
                 </div>
 
                 {/* Login Form */}
                 <form id="login-form" action="#" method="POST">
-                    <h2 id="form-title" className="text-xl font-semibold text-center mb-6 text-gray-800">
-                        {`${activeRole.charAt(0).toUpperCase() + activeRole.slice(1)} Login`}
+                    <h2 id="form-title" className="text-xl font-semibold text-center mb-6">
+                        <span className={`
+                            bg-gradient-to-r 
+                            ${activeRole === 'patient' ? 'from-indigo-600 to-indigo-400' : 
+                              activeRole === 'doctor' ? 'from-emerald-600 to-emerald-400' : 
+                              'from-cyan-600 to-cyan-400'} 
+                            bg-clip-text text-transparent
+                        `}>
+                            {`${activeRole.charAt(0).toUpperCase() + activeRole.slice(1)} Login`}
+                        </span>
                     </h2>
                     
                     <div className="space-y-5">
@@ -130,7 +116,7 @@ export default function AuthPage() {
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                                     Password
                                 </label>
-                                <a href="#" className={`form-link text-sm font-medium ${currentTheme.link}`}>
+                                <a href="#" className="form-link text-sm font-medium">
                                     Forgot?
                                 </a>
                             </div>
@@ -139,7 +125,7 @@ export default function AuthPage() {
                                 id="password" 
                                 name="password" 
                                 required
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:border-transparent"
                                 placeholder="••••••••"
                             />
                         </div>
@@ -149,7 +135,7 @@ export default function AuthPage() {
                     <div className="mt-8">
                         <button 
                             type="submit"
-                            className={`submit-btn w-full py-3 px-4 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-300 ${currentTheme.submit}`}
+                            className="submit-btn w-full py-3 px-4 text-white font-semibold rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-300"
                         >
                             Sign In
                         </button>
@@ -162,22 +148,14 @@ export default function AuthPage() {
                 {/* Registration Section */}
                 <div className="text-center">
                     <p className="text-sm text-gray-600">Don't have an account?</p>
-                    <div className="flex flex-col space-y-3 mt-4">
-                        {/* Replaced Next/Link with <a> for preview compatibility */}
-                        <a href="/register/patient" className={getRegisterBtnClassName('patient')}>
-                            Register as a Patient
-                        </a>
-                        <a href="/register/doctor" className={getRegisterBtnClassName('doctor')}>
-                            Register as a Doctor
-                        </a>
-                        <a href="/register/lab" className={getRegisterBtnClassName('lab')}>
-                            Register as a Lab
+                    <div className="mt-4">
+                        <a href={`/register/${activeRole}`} className={getRegisterBtnClassName(activeRole)}>
+                            Register as a {activeRole.charAt(0).toUpperCase() + activeRole.slice(1)}
                         </a>
                     </div>
+                    </div>
                 </div>
-
             </div>
         </div>
     );
 }
-
