@@ -1,0 +1,16 @@
+{
+  // Treat CSS files in this workspace folder as PostCSS so Tailwind at-rules
+  // are recognized by the language server and the built-in CSS validator
+  // doesn't report @tailwind as unknown.
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  // Make Tailwind CSS IntelliSense treat CSS as PostCSS
+  "tailwindCSS.includeLanguages": {
+    "css": "postcss"
+  },
+  // Disable the built-in CSS validator for this workspace folder to avoid
+  // duplicate/incorrect unknown at-rule diagnostics from the generic CSS
+  // language service. Tailwind IntelliSense will provide correct errors.
+  "css.validate": false
+}

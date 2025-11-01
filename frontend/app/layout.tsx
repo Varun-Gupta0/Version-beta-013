@@ -1,33 +1,33 @@
-import type { Metadata } from "next";
-import "./styles/globals.css";
-import "./styles/theme.css";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { DarkModeToggle } from "@/components/darkmodetoggle";
-import { Toast } from "@/components/toast";
-import { Loader } from "@/components/loader";
+// app/layout.tsx
 
-export const metadata: Metadata = {
-  title: "Beta-13 | Full Dive VR Prototype",
-  description: "Next-gen VR Interface built by Varun",
+import "../styles/global.css"; // Ensure Tailwind's @tailwind directives are loaded first
+import React from "react";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import { Providers } from "@/components/providers";
+import { Inter } from "next/font/google"; // 1. Import your font
+
+// 2. Set up the font and assign it a CSS variable name
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+export const metadata = {
+  title: "MediVault",
+  description: "AI + Blockchain powered health record management system",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen bg-background text-foreground flex flex-col">
-        <Navbar />
-        <div className="flex-grow relative">
-          <DarkModeToggle />
-          <Loader />
-          {children}
-        </div>
-        <Footer />
-        <Toast />
+    // 3. Add the font variable to your <html> tag
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
+      <body className="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
+        <Providers>
+          <Navbar />
+          <main className="max-w-6xl mx-auto px-4 py-6">{children}</main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

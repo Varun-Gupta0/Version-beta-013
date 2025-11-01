@@ -1,0 +1,63 @@
+/*
+  This file is processed by PostCSS + Tailwind. Set the editor language to
+  PostCSS (or enable Tailwind CSS IntelliSense) so @tailwind at-rules are
+  recognized. The workspace .vscode/settings.json maps *.css to postcss.
+*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Theme variables (moved from styles/theme.css). Keep these here so
+     Tailwind's `@tailwind base` is present in the same build step before
+     any `@layer base` rules are evaluated. */
+  :root {
+    /* Light Mode */
+    --background: #ffffff;
+    --foreground: #171717;
+
+    /* Add other theme colors */
+    --primary: #007aff;
+    --primary-foreground: #ffffff;
+    --secondary: #f0f0f0;
+    --secondary-foreground: #171717;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* Dark Mode */
+      --background: #0a0a0a;
+      --foreground: #ededed;
+
+      /* Add other theme colors */
+      --primary: #0a84ff;
+      --primary-foreground: #ffffff;
+      --secondary: #1c1c1e;
+      --secondary-foreground: #ededed;
+    }
+  }
+
+  /* Connect CSS vars to Tailwind custom properties */
+  :root {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+  }
+  /* * Global styles are applied here, using the variables
+   * defined in theme.css
+   */
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    /* Use Tailwind's fontFamily key. If your editor flags @tailwind rules,
+       set the file language to PostCSS or enable Tailwind CSS IntelliSense. */
+    font-family: theme('fontFamily.sans'), Arial, Helvetica, sans-serif;
+  }
+
+  /* You can add other global styles here */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+}
