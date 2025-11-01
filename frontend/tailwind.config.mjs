@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const config = {
+  darkMode: 'class',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,31 +9,43 @@ const config = {
   darkMode: "class",
   theme: {
     extend: {
-      fontFamily: {
-        // This links to the --font-sans variable in your layout.tsx
-        sans: ["var(--font-sans)", "sans-serif"],
-      },
-      
-      // --- ADD THIS 'colors' BLOCK ---
-      // This connects your CSS variables to Tailwind's theme.
       colors: {
-        border: "var(--border)",
-        background: "var(--background)",
-        foreground: "var(--foreground)",
         primary: {
-          DEFAULT: "var(--primary)",
-          foreground: "var(--primary-foreground)",
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          200: '#bae6fd',
+          300: '#7dd3fc',
+          400: '#38bdf8',
+          500: '#0ea5e9',
+          600: '#0284c7',
+          700: '#0369a1',
+          800: '#075985',
+          900: '#0c4a6e',
         },
         secondary: {
-          DEFAULT: "var(--secondary)",
-          foreground: "var(--secondary-foreground)",
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          200: '#bbf7d0',
+          300: '#86efac',
+          400: '#4ade80',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+          800: '#166534',
+          900: '#14532d',
         },
-        accent: {
-          DEFAULT: "var(--accent)",
-          foreground: "var(--accent-foreground)",
-        },
+        accent: '#FF6B6B',
+        medical: {
+          light: '#E3F2FD',
+          DEFAULT: '#2196F3',
+          dark: '#1565C0',
+        }
       },
-      // --- END OF BLOCK TO ADD ---
+      fontFamily: {
+        // 4. This line connects Tailwind's 'sans' to your font
+        sans: ["var(--font-sans)", "sans-serif"],
+      },
+      // ... your other theme extensions
     },
   },
   plugins: [],
