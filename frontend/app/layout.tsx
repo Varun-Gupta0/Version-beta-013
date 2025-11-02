@@ -1,11 +1,6 @@
 // app/layout.tsx
-// app/layout.tsx
 import "../styles/global.css"; // Ensure Tailwind's @tailwind directives are loaded first
-import React from "react"; // Ensure Tailwind's @tailwind directives are loaded first
-import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
-import { Providers } from "@/components/providers";
-import AiAssistant from "@/components/AiAssistant";
+import React from "react";
 
 export default function RootLayout({
   children,
@@ -16,12 +11,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
-        <Providers>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-          <AiAssistant />
-        </Providers>
+        <main>{children}</main>
       </body>
     </html>
   );

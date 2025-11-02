@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 
 type UserType = 'patient' | 'doctor' | 'lab';
 type AuthMode = 'login' | 'register';
@@ -37,25 +36,27 @@ export default function AuthPage() {
 
     try {
       const formData = new FormData(e.currentTarget);
-      const response = await fetch(`/api/auth/${authMode === 'login' ? 'login' : 'register'}`, {
+      const response = await fetch(`http://localhost:5000/api/auth/${authMode === 'login' ? 'login' : 'register'}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          name: formData.get('name') || 'Test User',
           email: formData.get('email'),
           password: formData.get('password'),
+          role: userType,
         }),
       });
 
       if (!response.ok) throw new Error('Authentication failed');
       const data = await response.json();
-      
+
       if (data.token) {
         localStorage.setItem('token', data.token);
         router.push('/dashboard');
-        toast.success(`Successfully ${authMode === 'login' ? 'logged in' : 'registered'}!`);
+        alert(`Successfully ${authMode === 'login' ? 'logged in' : 'registered'}!`);
       }
     } catch (error) {
-      toast.error('Authentication failed');
+      alert('Authentication failed');
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +70,7 @@ export default function AuthPage() {
         <h1 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
           MedWallet
         </h1>
-        
+
         {/* User Type Selector */}
         <div className="flex gap-2 mb-6">
           {(['patient', 'doctor', 'lab'] as const).map((type) => (
@@ -77,7 +78,7 @@ export default function AuthPage() {
               key={type}
               onClick={() => setUserType(type)}
               className={`flex-1 py-2 rounded-lg capitalize transition-all
-                ${userType === type 
+                ${userType === type
                   ? `bg-${type}-100 text-${type}-700 font-medium`
                   : 'bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
             >
@@ -87,27 +88,44 @@ export default function AuthPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {authMode === 'register' && (
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              required
+              className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2"
+              style={{
+                '--tw-ring-color': colors.primary + '20',
+                borderColor: userType === 'patient' ? '#818CF8'
+                  : userType === 'doctor' ? '#34D399'
+                  : '#F87171'
+              } as any}
+            />
+          )}
           <input
             type="email"
+            name="email"
             placeholder="Email"
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2"
-            style={{ 
+            style={{
               '--tw-ring-color': colors.primary + '20',
-              borderColor: userType === 'patient' ? '#818CF8' 
+              borderColor: userType === 'patient' ? '#818CF8'
                 : userType === 'doctor' ? '#34D399'
                 : '#F87171'
             } as any}
           />
-          
+
           <input
             type="password"
+            name="password"
             placeholder="Password"
             required
             className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2"
-            style={{ 
+            style={{
               '--tw-ring-color': colors.primary + '20',
-              borderColor: userType === 'patient' ? '#818CF8' 
+              borderColor: userType === 'patient' ? '#818CF8'
                 : userType === 'doctor' ? '#34D399'
                 : '#F87171'
             } as any}

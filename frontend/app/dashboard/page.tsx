@@ -2,12 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import MedicalRecordCard from '../../components/MedicalRecordCard';
-import HealthMetricsChart from '../../components/HealthMetricsChart';
-import ConsentManagement from '../../components/ConsentManagement';
-import AiInsights from '../../components/AiInsights';
-import WalletConnect from '../../components/WalletConnect';
-import { Wallet, Coins, TrendingUp, Shield } from 'lucide-react';
 
 interface MedicalRecord {
   id: string;
@@ -253,7 +247,13 @@ export default function Dashboard() {
 
         {/* Wallet Connection */}
         <div className="mb-8">
-          <WalletConnect />
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+            <h3 className="text-lg font-semibold mb-4">Wallet Connection</h3>
+            <p className="text-gray-600 dark:text-gray-400">Connect your blockchain wallet to access advanced features.</p>
+            <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+              Connect Wallet
+            </button>
+          </div>
         </div>
 
         {/* Quick Stats */}
@@ -296,7 +296,7 @@ export default function Dashboard() {
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Token Balance</p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">{blockchainStats.tokenBalance}</p>
               </div>
-              <Coins className="w-8 h-8 text-yellow-500" />
+              <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold">C</div>
             </div>
           </div>
 
@@ -306,7 +306,7 @@ export default function Dashboard() {
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Staked Amount</p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">{blockchainStats.stakedAmount}</p>
               </div>
-              <Shield className="w-8 h-8 text-purple-500" />
+              <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">S</div>
             </div>
           </div>
 
@@ -316,7 +316,7 @@ export default function Dashboard() {
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">Rewards Earned</p>
                 <p className="text-2xl font-bold text-gray-900 dark:text-white">{blockchainStats.rewardsEarned}</p>
               </div>
-              <TrendingUp className="w-8 h-8 text-green-500" />
+              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">T</div>
             </div>
           </div>
         </div>
@@ -450,7 +450,20 @@ export default function Dashboard() {
                 </div>
 
                 {/* AI Insights */}
-                <AiInsights limit={3} />
+                <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">AI Insights</h3>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
+                      <p className="text-gray-600 dark:text-gray-400">Your blood pressure readings are within normal range. Keep up the good work!</p>
+                    </div>
+                    <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
+                      <p className="text-gray-600 dark:text-gray-400">Consider scheduling a follow-up appointment in the next 3 months.</p>
+                    </div>
+                    <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
+                      <p className="text-gray-600 dark:text-gray-400">Your health metrics show consistent improvement over the past month.</p>
+                    </div>
+                  </div>
+                </div>
 
                 {/* Quick Actions */}
                 <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
@@ -490,12 +503,39 @@ export default function Dashboard() {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Medical Records</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {medicalRecords.map((record) => (
-                    <MedicalRecordCard
-                      key={record.id}
-                      record={record}
-                      onViewDetails={handleViewRecordDetails}
-                      onDownload={handleDownloadRecord}
-                    />
+                    <div key={record.id} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="text-2xl">
+                            {record.type === 'Consultation' && '👨‍⚕️'}
+                            {record.type === 'Lab Test' && '🧪'}
+                            {record.type === 'Imaging' && '📊'}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-900 dark:text-white">{record.type}</h4>
+                            <p className="text-sm text-gray-500 dark:text-gray-400">{record.date}</p>
+                          </div>
+                        </div>
+                        <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(record.status)}`}>
+                          {record.status}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-400 mb-4">{record.description}</p>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleViewRecordDetails(record)}
+                          className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+                        >
+                          View Details
+                        </button>
+                        <button
+                          onClick={() => handleDownloadRecord(record)}
+                          className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+                        >
+                          Download
+                        </button>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -530,16 +570,82 @@ export default function Dashboard() {
             {activeTab === 'analytics' && (
               <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                  <HealthMetricsChart metrics={healthMetrics} type="Blood Pressure" />
-                  <HealthMetricsChart metrics={healthMetrics} type="Heart Rate" />
+                  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                    <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Blood Pressure Trends</h3>
+                    <div className="space-y-4">
+                      {healthMetrics.filter(m => m.type === 'Blood Pressure').map((metric) => (
+                        <div key={metric.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded">
+                          <span className="text-gray-600 dark:text-gray-400">{metric.date}</span>
+                          <span className="font-semibold text-gray-900 dark:text-white">{metric.value} {metric.unit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                    <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Heart Rate Trends</h3>
+                    <div className="space-y-4">
+                      {healthMetrics.filter(m => m.type === 'Heart Rate').map((metric) => (
+                        <div key={metric.id} className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700 rounded">
+                          <span className="text-gray-600 dark:text-gray-400">{metric.date}</span>
+                          <span className="font-semibold text-gray-900 dark:text-white">{metric.value} {metric.unit}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <AiInsights />
+                <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">AI Insights</h3>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
+                      <p className="text-gray-600 dark:text-gray-400">Your blood pressure has been stable over the past month.</p>
+                    </div>
+                    <div className="p-4 bg-white dark:bg-gray-800 rounded-lg">
+                      <p className="text-gray-600 dark:text-gray-400">Heart rate patterns indicate good cardiovascular health.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
 
             {activeTab === 'consent' && (
-              <ConsentManagement userRole={userRole} />
+              <div className="space-y-6">
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+                  <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Data Consent Management</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded">
+                      <div>
+                        <h4 className="font-medium text-gray-900 dark:text-white">Share with Doctors</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Allow healthcare providers to access your records</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded">
+                      <div>
+                        <h4 className="font-medium text-gray-900 dark:text-white">Research Participation</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Contribute anonymized data to medical research</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                    <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded">
+                      <div>
+                        <h4 className="font-medium text-gray-900 dark:text-white">Emergency Access</h4>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Allow emergency services to access critical information</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" defaultChecked />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
             )}
 
             {activeTab === 'blockchain' && (
@@ -548,7 +654,7 @@ export default function Dashboard() {
                   {/* Wallet Information */}
                   <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
                     <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-                      <Wallet className="w-6 h-6 text-blue-500" />
+                      <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">W</div>
                       Wallet Information
                     </h3>
                     <div className="space-y-4">
@@ -576,7 +682,7 @@ export default function Dashboard() {
                   {/* Staking Actions */}
                   <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg">
                     <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white flex items-center gap-2">
-                      <Shield className="w-6 h-6 text-purple-500" />
+                      <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">S</div>
                       Staking Actions
                     </h3>
                     <div className="space-y-4">

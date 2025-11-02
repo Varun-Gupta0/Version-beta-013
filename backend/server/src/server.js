@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js"; // ✅ Added user routes
+import authRoutes from "./routes/authRoutes.js"; // ✅ Added auth routes
 import blockchainRoutes from "./routes/blockchainRoutes.js"; // ✅ Added blockchain routes
 import ipfsRoutes from "./routes/ipfsRoutes.js"; // ✅ Added IPFS routes
 import blockchainService from "./services/blockchainService.js"; // ✅ Added blockchain service
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 
 // ✅ API routes
 app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/blockchain", blockchainRoutes);
 app.use("/api/ipfs", ipfsRoutes);
 
